@@ -2,7 +2,31 @@
 
 Gateway v1 should use a small declarative configuration file plus environment variables for secrets.
 
+The current local MVP uses JSON config so it can run without external dependencies. YAML remains a good later option once the project adopts a dependency manager.
+
 ## Example
+
+```json
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "models": {
+    "mock-coder": {
+      "provider": "mock",
+      "provider_model": "mock-coder-v1"
+    }
+  },
+  "providers": {
+    "mock": {
+      "type": "mock"
+    }
+  }
+}
+```
+
+Future YAML shape:
 
 ```yaml
 server:

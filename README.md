@@ -33,3 +33,45 @@ The first version is intentionally architecture-first. Implementation starts onl
 - [Key Management](docs/key-management.md)
 - [Compatibility Targets](docs/compatibility-targets.md)
 - [Configuration](docs/configuration.md)
+
+## Local MVP
+
+The current MVP is a dependency-free Python service with a deterministic mock provider.
+
+Run tests:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Run the gateway:
+
+```bash
+python -m agentforge_gateway.cli --config config.example.json
+```
+
+If running from a source checkout without installation, include `src` on `PYTHONPATH`:
+
+```bash
+PYTHONPATH=src python -m agentforge_gateway.cli --config config.example.json
+```
+
+Windows PowerShell:
+
+```powershell
+$env:PYTHONPATH = "src"
+python -m agentforge_gateway.cli --config config.example.json
+```
+
+Call the mock chat endpoint:
+
+```bash
+curl http://127.0.0.1:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "mock-coder",
+    "messages": [
+      { "role": "user", "content": "Write a Python function." }
+    ]
+  }'
+```

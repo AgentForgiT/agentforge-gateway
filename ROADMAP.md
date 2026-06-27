@@ -14,8 +14,8 @@
 - implement `/v1/models`
 - implement `/v1/chat/completions`
 - add one mock provider adapter
-- add one real provider adapter
 - add basic request validation
+- add one real provider adapter
 
 ## Phase 2: Provider Layer
 
