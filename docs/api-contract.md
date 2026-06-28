@@ -25,6 +25,7 @@ Accepts chat completion requests and returns a normalized chat completion respon
 
 - accept common OpenAI-compatible fields
 - reject unsupported options clearly
+- reject streaming requests until streaming is implemented
 - keep provider-specific options behind an explicit extension field
 - do not silently ignore dangerous or unsupported behavior
 

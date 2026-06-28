@@ -36,7 +36,7 @@ The first version is intentionally architecture-first. Implementation starts onl
 
 ## Local MVP
 
-The current MVP is a dependency-free Python service with a deterministic mock provider.
+The current MVP is a dependency-free Python service with a deterministic mock provider and an optional OpenRouter provider adapter.
 
 Run tests:
 
@@ -70,6 +70,35 @@ curl http://127.0.0.1:8080/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "mock-coder",
+    "messages": [
+      { "role": "user", "content": "Write a Python function." }
+    ]
+}'
+```
+
+## OpenRouter Adapter
+
+To try a real upstream provider, set `OPENROUTER_API_KEY` and run the OpenRouter example config:
+
+```bash
+OPENROUTER_API_KEY=... PYTHONPATH=src python -m agentforge_gateway.cli --config config.openrouter.example.json
+```
+
+Windows PowerShell:
+
+```powershell
+$env:OPENROUTER_API_KEY = "..."
+$env:PYTHONPATH = "src"
+python -m agentforge_gateway.cli --config config.openrouter.example.json
+```
+
+Then call the gateway with the local model alias:
+
+```bash
+curl http://127.0.0.1:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "openrouter-coder",
     "messages": [
       { "role": "user", "content": "Write a Python function." }
     ]

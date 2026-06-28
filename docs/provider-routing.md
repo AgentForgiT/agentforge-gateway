@@ -31,3 +31,10 @@ Explicit routing is easy to debug, easy to document, and safe for early users. M
 ## Adapter Boundary
 
 Adapters should hide provider-specific request and response differences. The router should not know how OpenAI, OpenRouter, Ollama, or other providers format their native payloads.
+
+## Current Adapters
+
+- `mock`: deterministic local adapter for offline contract testing
+- `openrouter`: forwards OpenAI-compatible chat completion requests to OpenRouter using a provider model ID and an API key from the configured environment variable
+
+Provider responses should preserve the gateway model alias externally, even when the upstream provider requires a different native model ID.

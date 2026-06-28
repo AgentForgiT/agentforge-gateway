@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Added optional OpenRouter chat-completions provider adapter.
+- Added provider configuration parsing and OpenRouter example config.
+- Added adapter tests that run without external network calls.
+
 ## 0.1.0-alpha
 
 - Added dependency-free local HTTP gateway MVP.

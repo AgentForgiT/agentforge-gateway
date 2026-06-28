@@ -7,14 +7,17 @@ from typing import Any
 from .config import GatewayConfig, load_config
 from .errors import BadRequestError, GatewayError
 from .models import ModelRegistry
-from .providers import MockProvider
+from .providers import ChatProvider, build_provider
 
 
 class GatewayApp:
-    def __init__(self, config: GatewayConfig) -> None:
+    def __init__(self, config: GatewayConfig, providers: dict[str, ChatProvider] | None = None) -> None:
         self.config = config
         self.registry = ModelRegistry(config)
-        self.mock_provider = MockProvider()
+        self.providers = providers or {
+            name: build_provider(provider)
+            for name, provider in config.providers.items()
+        }
 
     def health(self) -> dict[str, object]:
         return {
@@ -33,15 +36,15 @@ class GatewayApp:
             raise BadRequestError("request requires a model")
         if not isinstance(messages, list) or not messages:
             raise BadRequestError("request requires non-empty messages")
+        if body.get("stream") is True:
+            raise BadRequestError("streaming responses are not supported yet")
         for message in messages:
             if not isinstance(message, dict) or "role" not in message or "content" not in message:
                 raise BadRequestError("each message requires role and content")
 
         model = self.registry.get(model_name)
-        if model.provider != "mock":
-            raise BadRequestError(f"unsupported provider for MVP: {model.provider}")
-
-        return self.mock_provider.chat_completion(model, messages)
+        provider = self.providers[model.provider]
+        return provider.chat_completion(model, body)
 
 
 def create_handler(app: GatewayApp) -> type[BaseHTTPRequestHandler]:
@@ -97,4 +100,3 @@ def create_server(config_path: str | None = None) -> ThreadingHTTPServer:
     config = load_config(config_path)
     app = GatewayApp(config)
     return ThreadingHTTPServer((config.host, config.port), create_handler(app))
-

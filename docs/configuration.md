@@ -26,6 +26,31 @@ The current local MVP uses JSON config so it can run without external dependenci
 }
 ```
 
+Optional OpenRouter JSON shape:
+
+```json
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "models": {
+    "openrouter-coder": {
+      "provider": "openrouter",
+      "provider_model": "qwen/qwen3-coder:free"
+    }
+  },
+  "providers": {
+    "openrouter": {
+      "type": "openrouter",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "timeout_seconds": 30
+    }
+  }
+}
+```
+
 Future YAML shape:
 
 ```yaml
@@ -43,6 +68,7 @@ models:
 
 providers:
   openrouter:
+    type: openrouter
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
   ollama:

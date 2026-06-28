@@ -27,6 +27,8 @@ AGENTFORGE_GATEWAY_API_KEY=
 
 Clients authenticate to the gateway with the gateway key. The gateway authenticates to providers with provider keys.
 
+The OpenRouter adapter reads its key from `OPENROUTER_API_KEY` by default. Config files can override the environment variable name with `api_key_env`.
+
 ## Redaction Rules
 
 - never log provider API keys
