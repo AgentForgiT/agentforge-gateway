@@ -1,8 +1,9 @@
 # agentforge-gateway
 
 > Historical prototype notice:
-> Canonical gateway development has moved to `AgentForgiT/agentforge` under `apps/gateway`.
-> This repository remains public to preserve prototype history, releases, and migration context.
+> This repository is a public pre-governance gateway prototype.
+> Canonical gateway development now lives in `AgentForgiT/agentforge` under `apps/gateway`.
+> This repository is superseded for new canonical development and remains public to preserve prototype history, releases, early links, and migration context.
 > New gateway work should target the canonical monorepo unless a later accepted AgentForge decision says otherwise.
 
 Universal AI gateway for the AgentForge ecosystem.
